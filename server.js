@@ -4,7 +4,7 @@ const app = express();
 
 //引用拆分出去的路由文件
 const userRouter = require('./routes/user');
-
+const stuRouter = require('./routes/stu');
 
 //设置请求中间件,记录请求
 const log = (req,res,next)=>{
@@ -22,7 +22,7 @@ app.set('view engine','ejs');
 
 //设置使用req.body,获取前端传递的post数据
 app.use(express.json());
-app.use(express.urlencoded({  extended : false }));
+app.use(express.urlencoded({ extended : false }));
 
 
 //设置静态资源托管
@@ -30,7 +30,7 @@ app.use(express.static(path.resolve(__dirname,'./public')));
 
 
 //使用用户路由，里面有查找，新增等方法
-app.use('/api',userRouter);
+app.use('/api',[userRouter,stuRouter]);
 
 // app.get('/',(req,res)=>{
 //      res.send('你好');
